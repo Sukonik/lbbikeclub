@@ -1,5 +1,12 @@
 # Changelog
 
+## 1.2.0 (2026-10-28)
+- New wheel mark: a flat, bright 2D wheel with just the rim, crossing spokes and a hub. No tire or outer line. Bright white with a slight theme tint (16%). Used as the logo, hero wheel, favicon and app icons.
+- Larger logo in the header and drawer; hover spin.
+- Favicon is a bolder 12-spoke variant that reads at 16 px, with the same slight theme tint.
+- Mobile polish: menu icon and theme orb centered, consistent circular icon buttons, optically centered button and toggle labels, full-width button rows on phones, fits at 320 px.
+- Hero readouts moved below the wheel so they no longer overlap it.
+
 ## 1.1.0 (2026-10-28)
 - Pearlescent theme system with a switcher: Giant (Black, default), Trek (Red), Specialized (Silver), Canyon (Green), Scott (Orange), Cervélo (Yellow), Cannondale (Blue), Bianchi (Purple). Saved per visitor.
 - New themed header and right-side drawer (menu, theme picker, links).
