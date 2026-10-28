@@ -18,19 +18,26 @@ Y2K chrome meets Anduril-style industrial UI: near-black field with a faint grid
 index.html            single-page site (Home / About / Social Media / Partners / Locations)
 css/site.css          all styles
 js/main.js            drawer nav, scroll reveal, count-up, active nav
-assets/favicon.svg
+assets/              favicon, share image (og-image.png), app icon
+404.html, robots.txt, sitemap.xml, site.webmanifest
+tests/check_site.py   pre-deploy checks
 .github/workflows/pages.yml   deploys to GitHub Pages
 ```
 
 No build step and no dependencies. Open `index.html` in a browser or run `python3 -m http.server`.
 
-## Publishing to GitHub Pages
+## Publishing (automated)
 
-The workflow deploys the repo root with GitHub Actions on every push to `main` or `gh-pages`.
+Publishing is automatic. Every push to `main` runs `.github/workflows/pages.yml`, which:
 
-1. Merge this branch into `main` (or move it to `gh-pages`).
-2. In the repo go to **Settings > Pages** and set **Source** to **GitHub Actions**.
-3. The site publishes at `https://sukonik.github.io/lbbikeclub/`. All paths are relative, so it works under that subpath.
+1. runs `python3 tests/check_site.py` (broken links and anchors, missing files, SEO basics),
+2. deploys the repo root to GitHub Pages.
+
+Pull requests into `main` run the same checks but do not deploy. Live site: https://sukonik.github.io/lbbikeclub/
+
+One-time setup: **Settings > Pages > Source: GitHub Actions**. To redeploy manually, use **Actions > Deploy GitHub Pages > Run workflow**.
+
+Workflow: edit on a branch, open a PR, merge it, and the site updates in about a minute. Run the checks locally with `python3 tests/check_site.py`.
 
 ## Editing content
 
