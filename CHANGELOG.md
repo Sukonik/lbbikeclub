@@ -1,9 +1,9 @@
 # Changelog
 
 ## 1.2.0 (2026-10-28)
-- New wheel mark: a deep-section road wheel (Trek Comp / Bontrager 40 style) with chrome rim, nipples, laced spokes and hub. Used as the logo, hero wheel, favicon and app icons.
+- New wheel mark: a flat, bright 2D wheel with just the rim, crossing spokes and a hub. No tire or outer line. Bright white with a slight theme tint (16%). Used as the logo, hero wheel, favicon and app icons.
 - Larger logo in the header and drawer; hover spin.
-- Favicon is a bolder variant for small sizes and follows the selected theme.
+- Favicon is a bolder 12-spoke variant that reads at 16 px, with the same slight theme tint.
 - Mobile polish: menu icon and theme orb centered, consistent circular icon buttons, optically centered button and toggle labels, full-width button rows on phones, fits at 320 px.
 - Hero readouts moved below the wheel so they no longer overlap it.
 
