@@ -17,7 +17,7 @@ class P(HTMLParser):
             if k in a: self.refs.append(a[k])
         if tag == "img" and "alt" not in a: self.imgs.append(a.get("src"))
 
-for page in ("index.html", "404.html"):
+for page in ("index.html", "weather.html", "404.html"):
     p = P(); p.feed((ROOT / page).read_text())
     if p.imgs: errors.append(f"{page}: img without alt: {p.imgs}")
     for r in p.refs:
@@ -25,14 +25,16 @@ for page in ("index.html", "404.html"):
         if r.startswith("#"):
             if r[1:] and r[1:] not in p.ids: errors.append(f"{page}: missing anchor {r}")
         elif r.startswith("/"):
-            continue  # root-relative (404 page) resolved at the host
+            if not (ROOT / r.replace("/lbbikeclub/", "", 1).split("?")[0]).exists() and r != "/lbbikeclub/":
+                errors.append(f"{page}: missing root-relative file {r}")
         else:
-            if not (ROOT / r.split("#")[0].split("?")[0]).exists(): errors.append(f"{page}: missing file {r}")
+            target = r.split("#")[0].split("?")[0]
+            if target and not (ROOT / target).exists(): errors.append(f"{page}: missing file {r}")
 
 html = (ROOT / "index.html").read_text()
 for needle in ('<title>', 'name="description"', 'rel="canonical"', 'application/ld+json'):
     if needle not in html: errors.append(f"index.html: missing {needle}")
-for f in ("robots.txt", "sitemap.xml", "site.webmanifest", ".nojekyll", "assets/og-image.png"):
+for f in ("js/theme.js", "js/main.js", "js/weather-lib.js", "js/weather-page.js", "css/site.css", "css/weather.css", "robots.txt", "sitemap.xml", "site.webmanifest", ".nojekyll", "assets/og-image.png"):
     if not (ROOT / f).exists(): errors.append(f"missing {f}")
 
 if errors:
