@@ -1,0 +1,167 @@
+<!doctype html>
+<html lang="en" data-theme="giant">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Ride Weather · Long Beach Bike Club</title>
+  <meta name="description" content="Ride weather for Long Beach, NY and nearby towns: ride score, wind and headwind, hourly best window, 7-day outlook and what to wear.">
+  <meta name="theme-color" content="#05070a">
+  <meta property="og:title" content="Ride Weather · Long Beach Bike Club">
+  <meta property="og:description" content="Ride score, wind, rain and a best riding window for Long Beach, NY.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://sukonik.github.io/lbbikeclub/weather.html">
+  <meta property="og:image" content="https://sukonik.github.io/lbbikeclub/assets/og-image.png">
+  <meta name="twitter:card" content="summary_large_image">
+  <link rel="canonical" href="https://sukonik.github.io/lbbikeclub/weather.html">
+  <link rel="icon" type="image/svg+xml" href="assets/favicon.svg">
+  <link rel="apple-touch-icon" href="assets/icon-512.png">
+  <link rel="manifest" href="site.webmanifest">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/site.css">
+  <link rel="stylesheet" href="css/weather.css">
+  <script src="js/theme.js"></script>
+</head>
+<body data-wx-page>
+  <a class="skip-link" href="#main">Skip to content</a>
+  <div class="paint" aria-hidden="true"></div>
+
+  <header class="site-header">
+    <div class="container site-header__inner">
+      <a class="brand" href="index.html" aria-label="Long Beach Bike Club home">
+        <span class="brand__orb" aria-hidden="true"></span>
+        <span class="brand__mark chrome-text">LBBC</span>
+        <span class="brand__legal">Long Beach Bike Club</span>
+      </a>
+      <nav class="nav" aria-label="Primary"><ul class="nav__list"><li><a class="nav__link" href="index.html">Home</a></li><li><a class="nav__link" href="index.html#about">About</a></li><li><a class="nav__link" href="index.html#social">Social Media</a></li><li><a class="nav__link" href="index.html#partners">Partners</a></li><li><a class="nav__link" href="index.html#locations">Locations</a></li><li><a aria-current="page" class="nav__link is-active" href="weather.html">Weather</a></li></ul></nav>
+      <a class="wx-chip" href="weather.html" data-tone="" aria-label="Ride weather">
+        <span class="wx-chip__dot" aria-hidden="true"></span>
+        <span class="wx-chip__temp">--</span>
+        <span class="wx-chip__wind"></span>
+        <span class="wx-chip__score"></span>
+      </a>
+      <button class="icon-btn" type="button" data-drawer-open="theme-group" aria-label="Change theme" aria-controls="drawer" aria-expanded="false"><span class="theme-dot"></span></button>
+      <button class="icon-btn" type="button" data-drawer-open aria-label="Open menu" aria-controls="drawer" aria-expanded="false"><span class="menu-lines"></span></button>
+    </div>
+  </header>
+
+  <div class="scrim" id="scrim"></div>
+  <aside class="drawer" id="drawer" role="dialog" aria-modal="true" aria-label="Menu">
+    <div class="drawer__top">
+      <span class="brand__mark chrome-text">LBBC</span>
+      <button class="icon-btn" type="button" data-drawer-close aria-label="Close menu"><svg viewBox="0 0 24 24" width="16" height="16" stroke="currentColor" stroke-width="1.6" fill="none" stroke-linecap="round"><path d="M5 5l14 14M19 5L5 19"/></svg></button>
+    </div>
+    <nav class="drawer__group" aria-label="Menu"><span class="label">Navigate</span><ul><li><a class="drawer__link" href="index.html">Home <span>01</span></a></li><li><a class="drawer__link" href="index.html#about">About <span>02</span></a></li><li><a class="drawer__link" href="index.html#social">Social Media <span>03</span></a></li><li><a class="drawer__link" href="index.html#partners">Partners <span>04</span></a></li><li><a class="drawer__link" href="index.html#locations">Locations <span>05</span></a></li><li><a class="drawer__link" href="weather.html">Weather <span>06</span></a></li></ul></nav>
+    <div class="drawer__group" id="theme-group"><span class="label">Theme &middot; <span data-theme-name>Giant &middot; Black</span></span><div class="swatches" id="swatches"></div></div>
+    <div class="drawer__foot"><a href="https://www.facebook.com/groups/676497260309868/" rel="noopener">Facebook</a><a href="https://www.instagram.com/lbbikeclub/" rel="noopener">Instagram</a><a href="https://sukonik.github.io/weather-app/" rel="noopener">Full weather app</a></div>
+  </aside>
+
+  <main id="main">
+    <section class="wx-hero" id="top">
+      <div class="container wx-hero__grid">
+        <div class="reveal">
+          <p class="label"><b>&#9679;</b> Ride weather &middot; <span id="now-desc">Loading</span></p>
+          <h1 class="display chrome-text" style="font-size:clamp(2.6rem,9vw,6.5rem);margin-top:.75rem">Ride<br>conditions.</h1>
+        </div>
+        <div class="wx-toolbar">
+          <label class="field"><span class="label">Ride area</span><select class="select" id="place" aria-label="Ride area"></select></label>
+          <div class="field"><span class="label">Units</span><div class="segmented" id="units" role="group" aria-label="Units"><button type="button" data-u="imperial" aria-pressed="true">&deg;F &middot; mph</button><button type="button" data-u="metric" aria-pressed="false">&deg;C &middot; km/h</button></div></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="container" style="padding-bottom:4rem" aria-live="polite">
+      <div class="wx-status" id="wx-status"><p class="label">Loading ride conditions...</p></div>
+
+      <div class="wx-app" id="wx-app" hidden>
+        <div class="dash">
+          <article class="panel dash__gauge">
+            <div class="panel__head"><span class="index">R-01</span><span class="label">Ride score</span></div>
+            <div class="gauge" id="gauge">
+              <svg viewBox="0 0 220 124" role="img" aria-label="Ride score gauge">
+                <path class="gauge__track" d="M20 110 A90 90 0 0 1 200 110" pathLength="100"/>
+                <path class="gauge__value" id="gauge-value" d="M20 110 A90 90 0 0 1 200 110" pathLength="100"/>
+                <line class="gauge__tick" x1="30.0" y1="110.0" x2="24.0" y2="110.0"/><line class="gauge__tick" x1="33.9" y1="85.3" x2="28.2" y2="83.4"/><line class="gauge__tick" x1="45.3" y1="63.0" x2="40.4" y2="59.5"/><line class="gauge__tick" x1="63.0" y1="45.3" x2="59.5" y2="40.4"/><line class="gauge__tick" x1="85.3" y1="33.9" x2="83.4" y2="28.2"/><line class="gauge__tick" x1="110.0" y1="30.0" x2="110.0" y2="24.0"/><line class="gauge__tick" x1="134.7" y1="33.9" x2="136.6" y2="28.2"/><line class="gauge__tick" x1="157.0" y1="45.3" x2="160.5" y2="40.4"/><line class="gauge__tick" x1="174.7" y1="63.0" x2="179.6" y2="59.5"/><line class="gauge__tick" x1="186.1" y1="85.3" x2="191.8" y2="83.4"/><line class="gauge__tick" x1="190.0" y1="110.0" x2="196.0" y2="110.0"/>
+                <g class="gauge__needle" id="gauge-needle" style="transform:rotate(-90deg)"><path d="M110 9 L110 31" stroke="#fff" stroke-width="3" stroke-linecap="round"/></g>
+              </svg>
+              <div class="gauge__read"><div class="gauge__num" id="gauge-num">--</div><div class="gauge__of">of 100</div></div>
+            </div>
+            <div class="verdict"><span class="badge-wrap"><span class="badge" id="verdict-badge">--</span></span><p id="verdict-text"></p></div>
+            <div class="window" id="window"></div>
+          </article>
+
+          <article class="panel dash__wind">
+            <div class="panel__head"><span class="index">R-02</span><span class="label">Wind &amp; heading</span></div>
+            <div>
+              <div class="compass">
+                <svg viewBox="0 0 240 240" role="img" aria-label="Wind compass">
+                  <defs><linearGradient id="cring" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#fff"/><stop offset=".4" stop-color="var(--a)"/><stop offset=".6" stop-color="#1b2430"/><stop offset="1" stop-color="var(--b)"/></linearGradient></defs>
+                  <circle class="compass__ring" cx="120" cy="120" r="108"/>
+                  <line class="compass__spoke" x1="120" y1="120" x2="212.0" y2="120.0"/><line class="compass__spoke" x1="120" y1="120" x2="208.9" y2="143.8"/><line class="compass__spoke" x1="120" y1="120" x2="199.7" y2="166.0"/><line class="compass__spoke" x1="120" y1="120" x2="185.1" y2="185.1"/><line class="compass__spoke" x1="120" y1="120" x2="166.0" y2="199.7"/><line class="compass__spoke" x1="120" y1="120" x2="143.8" y2="208.9"/><line class="compass__spoke" x1="120" y1="120" x2="120.0" y2="212.0"/><line class="compass__spoke" x1="120" y1="120" x2="96.2" y2="208.9"/><line class="compass__spoke" x1="120" y1="120" x2="74.0" y2="199.7"/><line class="compass__spoke" x1="120" y1="120" x2="54.9" y2="185.1"/><line class="compass__spoke" x1="120" y1="120" x2="40.3" y2="166.0"/><line class="compass__spoke" x1="120" y1="120" x2="31.1" y2="143.8"/><line class="compass__tick" x1="120.0" y1="16.0" x2="120.0" y2="24.0"/><line class="compass__tick" x1="138.1" y1="17.6" x2="137.4" y2="21.5"/><line class="compass__tick" x1="155.6" y1="22.3" x2="154.2" y2="26.0"/><line class="compass__tick" x1="172.0" y1="29.9" x2="168.0" y2="36.9"/><line class="compass__tick" x1="186.8" y1="40.3" x2="184.3" y2="43.4"/><line class="compass__tick" x1="199.7" y1="53.2" x2="196.6" y2="55.7"/><line class="compass__tick" x1="210.1" y1="68.0" x2="203.1" y2="72.0"/><line class="compass__tick" x1="217.7" y1="84.4" x2="214.0" y2="85.8"/><line class="compass__tick" x1="222.4" y1="101.9" x2="218.5" y2="102.6"/><line class="compass__tick" x1="224.0" y1="120.0" x2="216.0" y2="120.0"/><line class="compass__tick" x1="222.4" y1="138.1" x2="218.5" y2="137.4"/><line class="compass__tick" x1="217.7" y1="155.6" x2="214.0" y2="154.2"/><line class="compass__tick" x1="210.1" y1="172.0" x2="203.1" y2="168.0"/><line class="compass__tick" x1="199.7" y1="186.8" x2="196.6" y2="184.3"/><line class="compass__tick" x1="186.8" y1="199.7" x2="184.3" y2="196.6"/><line class="compass__tick" x1="172.0" y1="210.1" x2="168.0" y2="203.1"/><line class="compass__tick" x1="155.6" y1="217.7" x2="154.2" y2="214.0"/><line class="compass__tick" x1="138.1" y1="222.4" x2="137.4" y2="218.5"/><line class="compass__tick" x1="120.0" y1="224.0" x2="120.0" y2="216.0"/><line class="compass__tick" x1="101.9" y1="222.4" x2="102.6" y2="218.5"/><line class="compass__tick" x1="84.4" y1="217.7" x2="85.8" y2="214.0"/><line class="compass__tick" x1="68.0" y1="210.1" x2="72.0" y2="203.1"/><line class="compass__tick" x1="53.2" y1="199.7" x2="55.7" y2="196.6"/><line class="compass__tick" x1="40.3" y1="186.8" x2="43.4" y2="184.3"/><line class="compass__tick" x1="29.9" y1="172.0" x2="36.9" y2="168.0"/><line class="compass__tick" x1="22.3" y1="155.6" x2="26.0" y2="154.2"/><line class="compass__tick" x1="17.6" y1="138.1" x2="21.5" y2="137.4"/><line class="compass__tick" x1="16.0" y1="120.0" x2="24.0" y2="120.0"/><line class="compass__tick" x1="17.6" y1="101.9" x2="21.5" y2="102.6"/><line class="compass__tick" x1="22.3" y1="84.4" x2="26.0" y2="85.8"/><line class="compass__tick" x1="29.9" y1="68.0" x2="36.9" y2="72.0"/><line class="compass__tick" x1="40.3" y1="53.2" x2="43.4" y2="55.7"/><line class="compass__tick" x1="53.2" y1="40.3" x2="55.7" y2="43.4"/><line class="compass__tick" x1="68.0" y1="29.9" x2="72.0" y2="36.9"/><line class="compass__tick" x1="84.4" y1="22.3" x2="85.8" y2="26.0"/><line class="compass__tick" x1="101.9" y1="17.6" x2="102.6" y2="21.5"/>
+                  <text class="compass__lbl" x="120" y="82">N</text><text class="compass__lbl" x="158" y="120">E</text><text class="compass__lbl" x="120" y="158">S</text><text class="compass__lbl" x="82" y="120">W</text>
+                  <g class="compass__rider" id="compass-rider"><path d="M120 6 L128 24 L120 20 L112 24 Z"/></g>
+                  <g class="compass__arrow" id="compass-arrow"><path d="M120 34 L132 70 L123 66 L123 118 L117 118 L117 66 L108 70 Z" transform="translate(0,0)"/></g>
+                </svg>
+              </div>
+            </div>
+            <div>
+              <div class="wind-read"><strong id="wind-main">--</strong><span id="wind-sub"></span></div>
+              <p class="wind-note" style="margin-bottom:.5rem;margin-top:1rem">I am riding toward</p>
+              <div class="segmented segmented--dirs" id="heading-group" role="group" aria-label="Riding direction"></div>
+              <p class="wind-note">Arrow shows where the wind is blowing. White marker is your heading.</p>
+            </div>
+          </article>
+
+          <article class="dash__computer">
+            <div class="computer" id="computer"></div>
+          </article>
+
+          <article class="panel dash__gear">
+            <div class="panel__head"><span class="index">R-03</span><span class="label">What to wear</span></div>
+            <p class="label" id="gear-for" style="margin-bottom:.5rem"></p>
+            <ul class="checks" id="gear"></ul>
+          </article>
+          <article class="panel dash__lights">
+            <div class="panel__head"><span class="index">R-04</span><span class="label">Lights &amp; daylight</span></div>
+            <div class="sun" id="sun"></div>
+            <ul class="checks" id="lights"></ul>
+          </article>
+        </div>
+
+        <div style="margin-top:2.5rem">
+          <div class="tabs-bar">
+            <div class="segmented" role="tablist" aria-label="Forecast range">
+              <button type="button" role="tab" id="tab-hours" aria-selected="true" aria-controls="panel-hours">Next 24 hours</button>
+              <button type="button" role="tab" id="tab-days" aria-selected="false" aria-controls="panel-days" tabindex="-1">7 days</button>
+            </div>
+            <span class="label" id="updated"></span>
+          </div>
+          <div class="tab-panel" id="panel-hours" role="tabpanel" aria-labelledby="tab-hours"><ul class="hours" id="hours"></ul></div>
+          <div class="tab-panel" id="panel-days" role="tabpanel" aria-labelledby="tab-days" hidden><ul class="days" id="days"></ul></div>
+        </div>
+
+        <article class="panel more" style="margin-top:2.5rem">
+          <div><h3>Want more detail?</h3><p>Tides, air quality, wind charts, UV and moon phases are in the full ClearSky weather app.</p></div>
+          <div class="btn-row"><a class="btn btn--chrome" href="https://sukonik.github.io/weather-app/" rel="noopener">Open weather app</a><a class="btn" href="https://sukonik.github.io/weather-app/tides.html" rel="noopener">Tides</a><a class="btn" href="https://sukonik.github.io/weather-app/air-quality.html" rel="noopener">Air quality</a></div>
+        </article>
+
+        <p class="fine">Ride score is our own 0 to 100 estimate from feels-like temperature, wind, gusts, rain chance, UV and daylight. It is a guide, not a safety guarantee. Weather data from <a href="https://open-meteo.com/" rel="noopener">Open-Meteo</a>. Always check conditions and ride to what you see.</p>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      <div class="site-footer__grid">
+        <div><p class="brand__mark chrome-text" style="font-size:1.4rem">Long Beach Bike Club</p><p class="copy" style="margin-top:.5rem">A local bike club for Long Beach, NY.<br>#longbeachny #bikeclub #socialcycling</p></div>
+        <nav class="site-footer__links" aria-label="Footer"><a href="https://www.facebook.com/groups/676497260309868/" rel="noopener">Facebook</a><a href="https://www.instagram.com/lbbikeclub/" rel="noopener">Instagram</a><a href="weather.html">Weather</a><a href="#top">Top</a></nav>
+      </div>
+      <div class="site-footer__bottom label"><span>&copy; <span id="year">2026</span> Long Beach Bike Club</span><span>Wear a helmet</span></div>
+    </div>
+  </footer>
+  <script src="js/weather-lib.js"></script>
+  <script src="js/main.js"></script>
+  <script src="js/weather-page.js"></script>
+</body>
+</html>

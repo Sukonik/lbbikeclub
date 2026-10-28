@@ -1,0 +1,25 @@
+name: QA
+
+on:
+  pull_request:
+    branches: ["main"]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  browser:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - run: python3 tests/check_site.py
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+      - name: Install Playwright
+        run: npm i --no-save playwright && npx playwright install --with-deps chromium
+      - name: Serve site
+        run: python3 -m http.server 8123 &
+      - name: Browser checks (pages x widths, drawer, themes, weather)
+        run: sleep 2 && node tests/browser_check.js
