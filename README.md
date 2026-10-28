@@ -43,11 +43,30 @@ Each theme sets three colors (`--a` primary, `--b` color-flip highlight, `--c` d
 - A live chip in the header and live readouts on the home page use the same data (cached 10 minutes).
 
 ## 🧩 UI/UX architecture
-Black first, pearlescent color second, white text. Design cues: the modular, high-contrast look of [Anduril](https://www.anduril.com/), and the mobile-first responsive structure of [GoldenSunLaw](https://github.com/Sukonik/GoldenSunLaw) and [GoldBrief](https://github.com/Sukonik/goldbrief). Inter for type, a mono face for labels. No framework and no build step.
+**What we use right now.** A static site: plain HTML, CSS and JavaScript. No framework, no build step, no runtime dependencies, so it deploys straight to GitHub Pages.
 
-Component patterns come from [Ant Design](https://github.com/ant-design/ant-design) (segmented control), [Base UI](https://github.com/mui/base-ui) (toggle group, accessible drawer behavior), [shadcn/ui](https://github.com/shadcn-ui/ui) (select, tabs, badge) and [Chakra UI](https://github.com/chakra-ui/chakra-ui) (spacing and token ideas). They are rewritten as small vanilla CSS and JS so the site stays a static GitHub Pages site. Check each project's license before copying code.
+| Layer | What we use today |
+| --- | --- |
+| **Visual direction** | Black first, pearlescent color second, white text. The modular, high-contrast look of [Anduril](https://www.anduril.com/) with Y2K chrome: glassy panels, chrome-gradient headings, a chrome wheel, soft color-flip "pearl paint" behind everything. |
+| **Theme system** | 8 bike-brand themes (see [Themes](#-themes)) driven by three CSS color tokens: `--a`, `--b`, `--c`. Registered with `@property`, so color changes animate smoothly. Saved in `localStorage`, applied before first paint. |
+| **Header** | Clean near-black bar tinted by the theme, a 1px theme-colored hairline, desktop link row, live weather chip, theme button, menu button. Sticky with blur. |
+| **Drawer** | Its own surface on the right: darker panel, theme-colored edge, scrim. Holds navigation, the theme picker and shortcuts. Escape closes it, Tab stays inside it, focus returns to the button. |
+| **Typography** | [Inter](https://fonts.google.com/specimen/Inter) for text and headings (system fallbacks), a system monospace for labels, numbers and the bike-computer readouts. Display headings are uppercase, heavy, tightly tracked. |
+| **Layout** | Mobile first, 640 / 920 / 1200 px breakpoints, `min(100% - 2rem, 80rem)` container, CSS Grid for panels and the weather dashboard. No horizontal scroll at 320 px and up. |
+| **Components** | Panel (pearl glass card), button (chrome and outline), badge, select, segmented control, toggle group, tabs, progress segments, checklist, gauge, compass. All hand-written in `css/site.css` and `css/weather.css`. |
+| **Bike UI elements** | Ride-score speedometer gauge, wind compass with rider heading, bike-computer tiles with LED segment bars, tire-tread hourly bars, spinning chrome wheel on the home page. |
+| **Motion** | Slow paint drift, wheel spin, soft reveal on scroll, count-up numbers, gauge and compass easing. All off under `prefers-reduced-motion`. |
+| **Accessibility** | Skip link, visible focus rings, semantic landmarks, `aria` on drawer, tabs, toggle buttons and the live weather region, text contrast on dark, keyboard operable everywhere. |
+| **Data** | [Open-Meteo](https://open-meteo.com/) (no API key), cached 10 minutes in `sessionStorage`, with an error and retry state. |
+| **Quality checks** | `tests/check_site.py` (links, anchors, files, SEO) before every deploy; `tests/browser_check.js` (3 pages x 5 widths, drawer, all themes, weather render) on pull requests. |
 
-Responsive breakpoints: 640 / 920 / 1200 px. Keyboard-accessible drawer (Escape, focus trap), skip link, `prefers-reduced-motion` support.
+**Where the ideas come from.** The structure and responsive patterns follow [GoldenSunLaw](https://github.com/Sukonik/GoldenSunLaw) and [GoldBrief](https://github.com/Sukonik/goldbrief). Component patterns are borrowed from [Ant Design](https://github.com/ant-design/ant-design) (segmented control), [Base UI](https://github.com/mui/base-ui) (toggle group, accessible drawer behavior), [shadcn/ui](https://github.com/shadcn-ui/ui) (select, tabs, badge) and [Chakra UI](https://github.com/chakra-ui/chakra-ui) (spacing and token ideas). Those projects are React libraries, so we rewrite the patterns as small vanilla CSS and JS rather than install them. **We do not ship any of their code.** If we ever copy code, check that project's license first.
+
+**Design rules.**
+1. One source of color: every surface reads `--a`, `--b`, `--c`. Never hard-code a theme color.
+2. White text on dark. Color is for accents, edges, glow and data.
+3. Short copy. Labels in mono, headings in Inter.
+4. Motion is slow and optional.
 
 ## 🗂️ Structure
 ```
@@ -91,11 +110,14 @@ Automatic. Every push to `main` runs [`pages.yml`](.github/workflows/pages.yml):
 [Mozilla Public License 2.0](LICENSE).
 
 ## 🕰️ Site version history
-Newest version is shown at the [top](#-current-site-v110); this log lists earlier versions, newest first. **Maintenance rule:** when the site changes in a user-visible way, move the previous "Current" entry here, add the new one at the top, and add a matching [CHANGELOG](CHANGELOG.md) entry.
+Newest version is shown at the [top](#-current-site-v110); this log lists every version, newest first. **Maintenance rule:** when the site changes in a user-visible way, move the previous "Current" entry here, add the new one at the top, and add a matching [CHANGELOG](CHANGELOG.md) entry.
 
 | Version | Date | Status | Summary |
 | --- | --- | --- | --- |
-| 1.1.0 | 2026-10-28 | **Current** (see top) | Pearlescent brand themes and switcher, themed header and drawer, live weather chip, Ride Weather page, cleaner copy. |
-| 1.0.0 | 2026-10-28 | Superseded | First public release: Home, About, Social Media, Partners, Locations, automated publish, 404 and SEO files. |
+| 1.1.0 | 2026-10-28 | **Current** (see top) | 8 pearlescent bike-brand themes and switcher, themed header and right-side drawer, live weather chip, Ride Weather page (score gauge, wind compass, best window, 24-hour and 7-day, what to wear, lights), scrolling text bar removed, tighter copy, browser QA, README and CHANGELOG in GoldBrief style. |
+| 1.0.0 | 2026-10-28 | Superseded | First public release ([`2848799`](https://github.com/Sukonik/lbbikeclub/commit/2848799), [PR #1](https://github.com/Sukonik/lbbikeclub/pull/1)): Home, About, Social Media, Partners, Locations; Y2K chrome look on black with cyan accents; automated Pages deploy with pre-deploy checks; 404, sitemap, robots, manifest, share image, structured data. |
+| pre-1.0 draft 3 | 2026-10-28 | Never public | Publish automation, 404, sitemap, robots, manifest, share image ([`5c2d27d`](https://github.com/Sukonik/lbbikeclub/commit/5c2d27d)). |
+| pre-1.0 draft 2 | 2026-10-28 | Never public | Social Media, Partners (Bike Nassau) and Locations sections for 8 towns ([`1fba65c`](https://github.com/Sukonik/lbbikeclub/commit/1fba65c)). |
+| pre-1.0 draft 1 | 2026-10-28 | Never public | First single-page Y2K chrome site with spinning wheel, About, Rides and Join ([`a25829e`](https://github.com/Sukonik/lbbikeclub/commit/a25829e)). |
 
-Exact earlier states can be viewed with `git show <commit>:index.html`.
+Drafts are listed from branch history before launch. Exact earlier states can be viewed with `git show <commit>:index.html`.

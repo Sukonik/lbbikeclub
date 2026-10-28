@@ -10,3 +10,8 @@
 
 ## 1.0.0 (2026-10-28)
 - First public release: Home, About, Social Media, Partners, Locations; automated GitHub Pages deploy with pre-deploy checks; 404, sitemap, robots, manifest, share image.
+
+## pre-1.0 drafts (2026-10-28)
+- Draft 3 (`5c2d27d`): main-only automated deploy with pre-deploy checks; 404, sitemap, robots, manifest, share image, structured data.
+- Draft 2 (`1fba65c`): Social Media, Partners and Locations sections; navigation restructure.
+- Draft 1 (`a25829e`): first single-page Y2K chrome site with spinning wheel.
