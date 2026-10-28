@@ -4,7 +4,7 @@
 
 A local bike club for Long Beach, NY. **Ride together. Check the weather. Roll out.** `#longbeachny #bikeclub #socialcycling`
 
-## 🏠 Current site: v1.2.0
+## 🏠 Current site: v1.2.1
 🚲 **Live:** [sukonik.github.io/lbbikeclub](https://sukonik.github.io/lbbikeclub/) · 🌤️ [Ride weather](https://sukonik.github.io/lbbikeclub/weather.html) · 🚀 [Deploy workflow](https://github.com/Sukonik/lbbikeclub/actions/workflows/pages.yml) · 🧪 [QA workflow](https://github.com/Sukonik/lbbikeclub/actions/workflows/qa.yml)
 
 Pearlescent chrome on black, a deep-section wheel logo, a clean themed header with its own right-side drawer, a live weather chip, and a ride-weather page built for cyclists. Older versions are logged at the [bottom of this README](#-site-version-history).
@@ -59,7 +59,7 @@ Each theme sets three colors (`--a` primary, `--b` color-flip highlight, `--c` d
 | **Motion** | Slow paint drift, wheel spin, soft reveal on scroll, count-up numbers, gauge and compass easing. All off under `prefers-reduced-motion`. |
 | **Accessibility** | Skip link, visible focus rings, semantic landmarks, `aria` on drawer, tabs, toggle buttons and the live weather region, text contrast on dark, keyboard operable everywhere. |
 | **Data** | [Open-Meteo](https://open-meteo.com/) (no API key), cached 10 minutes in `sessionStorage`, with an error and retry state. |
-| **Quality checks** | `tests/check_site.py` (links, anchors, files, SEO) before every deploy; `tests/browser_check.js` (3 pages x 5 widths, drawer, all themes, weather render) on pull requests. |
+| **Quality checks** | `tests/check_site.py` (links, anchors, files, SEO) before every deploy; `tests/browser_check.js` (3 pages x 5 widths, drawer, all themes, weather render) and `tests/ui_sweep.js` (tap targets, clipping, contrast) on pull requests. |
 
 **Where the ideas come from.** The structure and responsive patterns follow [GoldenSunLaw](https://github.com/Sukonik/GoldenSunLaw) and [GoldBrief](https://github.com/Sukonik/goldbrief). Component patterns are borrowed from [Ant Design](https://github.com/ant-design/ant-design) (segmented control), [Base UI](https://github.com/mui/base-ui) (toggle group, accessible drawer behavior), [shadcn/ui](https://github.com/shadcn-ui/ui) (select, tabs, badge) and [Chakra UI](https://github.com/chakra-ui/chakra-ui) (spacing and token ideas). Those projects are React libraries, so we rewrite the patterns as small vanilla CSS and JS rather than install them. **We do not ship any of their code.** If we ever copy code, check that project's license first.
 
@@ -81,7 +81,7 @@ js/main.js                             drawer, reveal, active nav
 assets/                                wheel logo, favicons, app icons, share image
 scripts/build_icons.js                 generates the wheel mark and icons (`--symbol` prints the inline mark)
 robots.txt, sitemap.xml, site.webmanifest
-tests/                                 check_site.py, browser_check.js, mock_weather.js
+tests/                                 check_site.py, browser_check.js, ui_sweep.js, mock_weather.js
 .github/workflows/                     pages.yml (deploy), qa.yml (PR checks)
 ```
 
@@ -97,6 +97,7 @@ python3 tests/check_site.py            # links, anchors, files, SEO basics (no d
 python3 -m http.server 8123 &          # serve the site
 npm i --no-save playwright && npx playwright install chromium
 node tests/browser_check.js            # 3 pages x 5 widths: overflow, JS errors, drawer, all 8 themes, weather render
+node tests/ui_sweep.js                 # UI sweep: overflow, tap targets, clipped text, contrast (pages x widths x themes)
 ```
 `browser_check.js` mocks the weather API, so it runs offline. The pull-request workflow (`qa.yml`) runs all of this. Automated checks do not replace human visual review.
 
@@ -112,11 +113,12 @@ Automatic. Every push to `main` runs [`pages.yml`](.github/workflows/pages.yml):
 [Mozilla Public License 2.0](LICENSE).
 
 ## 🕰️ Site version history
-Newest version is shown at the [top](#-current-site-v120); this log lists every version, newest first. **Maintenance rule:** when the site changes in a user-visible way, move the previous "Current" entry here, add the new one at the top, and add a matching [CHANGELOG](CHANGELOG.md) entry.
+Newest version is shown at the [top](#-current-site-v121); this log lists every version, newest first. **Maintenance rule:** when the site changes in a user-visible way, move the previous "Current" entry here, add the new one at the top, and add a matching [CHANGELOG](CHANGELOG.md) entry.
 
 | Version | Date | Status | Summary |
 | --- | --- | --- | --- |
-| 1.2.0 | 2026-10-28 | **Current** (see top) | Simple flat wheel logo and favicon (rim and spokes only, bright white with a slight theme tint), larger header logo, mobile polish: centered menu icon, theme orb and button labels, tidier button rows, hero readouts moved off the wheel. |
+| 1.2.1 | 2026-10-28 | **Current** (see top) | UI sweep: every tap target at least 44 px tall (nav links, unit toggle, heading toggle now a 4x2 grid), automated sweep for overflow, tap size, clipping and contrast across pages, widths and themes. |
+| 1.2.0 | 2026-10-28 | Superseded | Simple flat wheel logo and favicon (rim and spokes only, bright white with a slight theme tint), larger header logo, mobile polish: centered menu icon, theme orb and button labels, tidier button rows, hero readouts moved off the wheel. |
 | 1.1.0 | 2026-10-28 | Superseded | 8 pearlescent bike-brand themes and switcher, themed header and right-side drawer, live weather chip, Ride Weather page (score gauge, wind compass, best window, 24-hour and 7-day, what to wear, lights), scrolling text bar removed, tighter copy, browser QA, README and CHANGELOG in GoldBrief style. |
 | 1.0.0 | 2026-10-28 | Superseded | First public release ([`2848799`](https://github.com/Sukonik/lbbikeclub/commit/2848799), [PR #1](https://github.com/Sukonik/lbbikeclub/pull/1)): Home, About, Social Media, Partners, Locations; Y2K chrome look on black with cyan accents; automated Pages deploy with pre-deploy checks; 404, sitemap, robots, manifest, share image, structured data. |
 | pre-1.0 draft 3 | 2026-10-28 | Never public | Publish automation, 404, sitemap, robots, manifest, share image ([`5c2d27d`](https://github.com/Sukonik/lbbikeclub/commit/5c2d27d)). |

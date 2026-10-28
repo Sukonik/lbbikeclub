@@ -23,3 +23,5 @@ jobs:
         run: python3 -m http.server 8123 &
       - name: Browser checks (pages x widths, drawer, themes, weather)
         run: sleep 2 && node tests/browser_check.js
+      - name: UI sweep (tap targets, clipping, contrast)
+        run: node tests/ui_sweep.js

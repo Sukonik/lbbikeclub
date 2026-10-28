@@ -1,5 +1,10 @@
 # Changelog
 
+## 1.2.1 (2026-10-28)
+- UI sweep across 2 pages x 6 widths x 8 themes: no overflow, clipping or contrast issues found.
+- Tap targets: nav links, unit toggle and heading toggle are now at least 44 px tall; the heading toggle is a 4x2 grid so each button is wide enough on phones.
+- Added `tests/ui_sweep.js` and run it in the pull-request QA workflow.
+
 ## 1.2.0 (2026-10-28)
 - New wheel mark: a flat, bright 2D wheel with just the rim, crossing spokes and a hub. No tire or outer line. Bright white with a slight theme tint (16%). Used as the logo, hero wheel, favicon and app icons.
 - Larger logo in the header and drawer; hover spin.
