@@ -15,7 +15,7 @@ Y2K chrome meets Anduril-style industrial UI: near-black field with a faint grid
 ## Structure
 
 ```
-index.html            single-page site (About / Rides / Community / Join)
+index.html            single-page site (Home / About / Social Media / Partners / Locations)
 css/site.css          all styles
 js/main.js            drawer nav, scroll reveal, count-up, active nav
 assets/favicon.svg
@@ -34,5 +34,6 @@ The workflow deploys the repo root with GitHub Actions on every push to `main` o
 
 ## Editing content
 
+- Partners live in the `#partners` section; add a card per partner. Towns live in `#locations`.
 - Ride times are intentionally not listed. They live in the Facebook group. Add a schedule in the `#rides` section of `index.html` when you have one.
 - Add a custom domain by creating a `CNAME` file in the repo root.

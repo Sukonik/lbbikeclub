@@ -25,10 +25,11 @@
       </a>
       <nav class="nav" aria-label="Primary">
         <ul class="nav__list">
+          <li><a class="nav__link" href="#top">Home</a></li>
           <li><a class="nav__link" href="#about">About</a></li>
-          <li><a class="nav__link" href="#rides">Rides</a></li>
-          <li><a class="nav__link" href="#community">Community</a></li>
-          <li><a class="nav__link" href="#join">Join</a></li>
+          <li><a class="nav__link" href="#social">Social Media</a></li>
+          <li><a class="nav__link" href="#partners">Partners</a></li>
+          <li><a class="nav__link" href="#locations">Locations</a></li>
         </ul>
       </nav>
       <button class="nav-toggle" aria-expanded="false" aria-controls="nav-drawer" aria-label="Open menu"><span class="nav-toggle__lines" aria-hidden="true"></span></button>
@@ -42,10 +43,11 @@
     </div>
     <nav aria-label="Mobile">
       <ul class="nav-drawer__list">
-        <li><a class="nav-drawer__link" href="#about">About <span>01</span></a></li>
-        <li><a class="nav-drawer__link" href="#rides">Rides <span>02</span></a></li>
-        <li><a class="nav-drawer__link" href="#community">Community <span>03</span></a></li>
-        <li><a class="nav-drawer__link" href="#join">Join <span>04</span></a></li>
+        <li><a class="nav-drawer__link" href="#top">Home <span>01</span></a></li>
+        <li><a class="nav-drawer__link" href="#about">About <span>02</span></a></li>
+        <li><a class="nav-drawer__link" href="#social">Social Media <span>03</span></a></li>
+        <li><a class="nav-drawer__link" href="#partners">Partners <span>04</span></a></li>
+        <li><a class="nav-drawer__link" href="#locations">Locations <span>05</span></a></li>
       </ul>
     </nav>
     <p class="nav-drawer__meta label">Long Beach, NY &middot; 40.588&deg;N 73.658&deg;W</p>
@@ -65,7 +67,7 @@
           <p class="lede">A local bike club for Long Beach, NY. Social cycling, good company, and a lot of boardwalk.</p>
           <div class="btn-row">
             <a class="btn btn--chrome" href="https://www.facebook.com/groups/676497260309868/" rel="noopener">Join the group &rarr;</a>
-            <a class="btn" href="https://www.instagram.com/lbbikeclub/" rel="noopener">@lbbikeclub</a>
+            <a class="btn" href="#locations">Our locations</a>
           </div>
         </div>
 
@@ -96,50 +98,70 @@
     <section class="section" id="about" aria-labelledby="about-h">
       <div class="container">
         <div class="section-head section-head--split">
-          <div class="reveal"><p class="label"><b>01</b> / About</p><h2 class="section-title chrome-text" id="about-h">Built for the ride, not the race.</h2></div>
+          <div class="reveal"><p class="label"><b>02</b> / About</p><h2 class="section-title chrome-text" id="about-h">Built for the ride, not the race.</h2></div>
           <p class="copy reveal">Long Beach Bike Club is a local club for people who like riding together around Long Beach, NY. It is social first: show up, roll out, and meet your neighbors along the way. Everything starts in our private Facebook group.</p>
         </div>
         <div class="grid grid--3 reveal">
           <article class="panel"><div class="panel__head"><span class="index">M-01</span><span class="label">Social</span></div><h3>Ride together</h3><p>Group rides built around conversation and a good pace for the people in them.</p></article>
-          <article class="panel"><div class="panel__head"><span class="index">M-02</span><span class="label">Local</span></div><h3>Know the island</h3><p>Boardwalk, bay side and back streets. Local riders swap routes and favorite stops.</p></article>
+          <article class="panel"><div class="panel__head"><span class="index">M-02</span><span class="label">Local</span></div><h3>Know the area</h3><p>Boardwalk, bay side and back streets. Local riders swap routes and favorite stops.</p></article>
           <article class="panel"><div class="panel__head"><span class="index">M-03</span><span class="label">Open</span></div><h3>Everyone rolls</h3><p>Neighbors of every pace and bike are welcome. Bring a helmet and a friend.</p></article>
         </div>
-      </div>
-    </section>
-
-    <section class="section" id="rides" aria-labelledby="rides-h">
-      <div class="container">
-        <div class="section-head section-head--split">
-          <div class="reveal"><p class="label"><b>02</b> / Rides</p><h2 class="section-title chrome-text" id="rides-h">How we roll.</h2></div>
-          <p class="copy reveal">Ride dates, meet-up spots and route details are posted in the Facebook group so members always have the latest plan and any weather changes.</p>
-        </div>
-        <ul class="ride-list reveal">
-          <li><span class="index">R-01</span><strong>Check the group</strong><span>Each ride is announced in the Facebook group with time and meeting point.</span></li>
+        <ul class="ride-list reveal" style="margin-top:var(--s5)">
+          <li><span class="index">R-01</span><strong>Check the group</strong><span>Rides are announced in the Facebook group with time and meeting point.</span></li>
           <li><span class="index">R-02</span><strong>Show up ready</strong><span>Helmet on, tires pumped, water bottle full. Lights if it is getting late.</span></li>
           <li><span class="index">R-03</span><strong>Ride social</strong><span>Keep it friendly, look out for each other, and follow the rules of the road.</span></li>
         </ul>
       </div>
     </section>
 
-    <section class="section" id="community" aria-labelledby="comm-h">
+    <section class="section" id="social" aria-labelledby="social-h">
       <div class="container">
-        <div class="section-head reveal"><p class="label"><b>03</b> / Community</p><h2 class="section-title chrome-text" id="comm-h">The network.</h2></div>
-        <div class="grid grid--4 reveal">
-          <div class="panel stat"><span class="stat__num chrome-text" data-count="142">142</span><span class="stat__note">Facebook members &middot; private</span></div>
-          <div class="panel stat"><span class="stat__num chrome-text" data-count="76">76</span><span class="stat__note">Instagram followers</span></div>
-          <div class="panel stat"><span class="stat__num chrome-text" data-count="29">29</span><span class="stat__note">Instagram following</span></div>
-          <div class="panel stat"><span class="stat__num chrome-text">LB</span><span class="stat__note">Long Beach, NY</span></div>
+        <div class="section-head section-head--split">
+          <div class="reveal"><p class="label"><b>03</b> / Social Media</p><h2 class="section-title chrome-text" id="social-h">Follow the signal.</h2></div>
+          <p class="copy reveal">Photos and updates live on Instagram. Ride planning lives in the private Facebook group. Use <b>#longbeachny #bikeclub #socialcycling</b> when you post.</p>
+        </div>
+        <div class="grid grid--2 reveal">
+          <article class="panel"><div class="panel__head"><span class="index">S-01</span><span class="label">Instagram</span></div><h3>@lbbikeclub</h3><p>Rides, routes and the people on them.</p>
+            <p class="stat__note" style="margin:1rem 0"><span class="chrome-text" style="font-size:2rem;font-weight:800;font-style:italic" data-count="76">76</span> followers &middot; <span data-count="29">29</span> following</p>
+            <a class="btn btn--chrome" href="https://www.instagram.com/lbbikeclub/" rel="noopener">Follow &rarr;</a></article>
+          <article class="panel"><div class="panel__head"><span class="index">S-02</span><span class="label">Facebook &middot; Private group</span></div><h3>Long Beach Bike Club</h3><p>Ride times, meet-ups and chat. Request to join and you will be let in.</p>
+            <p class="stat__note" style="margin:1rem 0"><span class="chrome-text" style="font-size:2rem;font-weight:800;font-style:italic" data-count="142">142</span> members</p>
+            <a class="btn btn--chrome" href="https://www.facebook.com/groups/676497260309868/" rel="noopener">Join the group &rarr;</a></article>
         </div>
         <p class="label reveal" style="margin-top:1rem">Counts as of Oct 2026</p>
+      </div>
+    </section>
+
+    <section class="section" id="partners" aria-labelledby="partners-h">
+      <div class="container">
+        <div class="section-head section-head--split">
+          <div class="reveal"><p class="label"><b>04</b> / Partners</p><h2 class="section-title chrome-text" id="partners-h">Better together.</h2></div>
+          <p class="copy reveal">We ride alongside other local cycling groups and organizations. Follow them, join their events, and share the road.</p>
+        </div>
+        <div class="grid grid--3 reveal">
+          <article class="panel"><div class="panel__head"><span class="index">P-01</span><span class="label">Nassau County</span></div><h3>Bike Nassau</h3><p>A Nassau County cycling community on Instagram.</p><p style="margin-top:1rem"><a class="btn" href="https://www.instagram.com/bikenassau/" rel="noopener">@bikenassau &rarr;</a></p></article>
+          <article class="panel"><div class="panel__head"><span class="index">P-02</span><span class="label">Open slot</span></div><h3>Local shops</h3><p>Bike shops and cafes that support our riders can be listed here.</p></article>
+          <article class="panel"><div class="panel__head"><span class="index">P-03</span><span class="label">Open slot</span></div><h3>Become a partner</h3><p>Run a club or business nearby? Message us on Instagram or in the Facebook group.</p><p style="margin-top:1rem"><a class="btn" href="https://www.instagram.com/lbbikeclub/" rel="noopener">Get in touch &rarr;</a></p></article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="locations" aria-labelledby="loc-h">
+      <div class="container">
+        <div class="section-head section-head--split">
+          <div class="reveal"><p class="label"><b>05</b> / Locations</p><h2 class="section-title chrome-text" id="loc-h">Where we roll.</h2></div>
+          <p class="copy reveal">Home is Long Beach, NY. From there the ride area stretches east to Point Lookout, west along the Rockaway boardwalk, and north over the bridge to the Five Towns.</p>
+        </div>
+        <div class="grid grid--4 reveal"><article class="panel"><div class="panel__head"><span class="index">L-01</span><span class="label">Island</span></div><h3>Point Lookout</h3><p>The eastern tip of the barrier island, where the ocean meets Jones Inlet. A small beach hamlet with a laid-back, end-of-the-road feel.</p></article><article class="panel"><div class="panel__head"><span class="index">L-02</span><span class="label">Island</span></div><h3>Lido Beach</h3><p>A quiet residential stretch between Point Lookout and Long Beach, home to Lido Beach Town Park and wide-open ocean views.</p></article><article class="panel"><div class="panel__head"><span class="index">L-03</span><span class="label">Island</span></div><h3>Long Beach</h3><p>Our home base. A city on the barrier island with a boardwalk of about 2.2 miles, ocean beaches and a walkable downtown.</p></article><article class="panel"><div class="panel__head"><span class="index">L-04</span><span class="label">Island</span></div><h3>Atlantic Beach</h3><p>The western end of the island, a village with beach clubs and a bridge link to the mainland and the Five Towns.</p></article><article class="panel"><div class="panel__head"><span class="index">L-05</span><span class="label">Rockaways</span></div><h3>Rockaway Beach</h3><p>Across the Nassau line in Queens. A long boardwalk, surf beaches and a lively food scene make it a favorite ride destination.</p></article><article class="panel"><div class="panel__head"><span class="index">L-06</span><span class="label">Rockaways</span></div><h3>Arverne</h3><p>A Rockaway neighborhood along the ocean with beachfront and the boardwalk, between Rockaway Beach and Far Rockaway.</p></article><article class="panel"><div class="panel__head"><span class="index">L-07</span><span class="label">Five Towns</span></div><h3>Lawrence</h3><p>A residential village on the mainland side, reached from the island by bridge. Quiet streets and shaded roads.</p></article><article class="panel"><div class="panel__head"><span class="index">L-08</span><span class="label">Five Towns</span></div><h3>Cedarhurst</h3><p>A village with a busy Central Avenue shopping and dining strip, good for a coffee stop on the way back.</p></article></div>
       </div>
     </section>
 
     <section class="section" id="join" aria-labelledby="join-h">
       <div class="container cta">
         <div class="reveal">
-          <p class="label"><b>04</b> / Join</p>
+          <p class="label"><b>06</b> / Join</p>
           <h2 class="section-title chrome-text" id="join-h">Get in the group.</h2>
-          <p class="copy" style="margin-top:1rem">The Facebook group is private. Request to join and you will be let in. Follow us on Instagram for photos and updates.</p>
+          <p class="copy" style="margin-top:1rem">The Facebook group is private. Request to join and you will be let in.</p>
         </div>
         <div class="btn-row reveal">
           <a class="btn btn--chrome" href="https://www.facebook.com/groups/676497260309868/" rel="noopener">Facebook group &rarr;</a>
