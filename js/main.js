@@ -80,6 +80,26 @@
     links.forEach(function (l) { var s = document.querySelector(l.getAttribute("href")); if (s) so.observe(s); });
   }
 
+  /* ---- weekly stats: followers / members from data/stats.json (static numbers stay as fallback) ---- */
+  var statEls = document.querySelectorAll("[data-stat]");
+  if (statEls.length && window.fetch) {
+    var fmt = function (iso, year) { return new Date(iso + "T12:00:00").toLocaleDateString("en-US", year ? { month: "short", day: "numeric", year: "numeric" } : { month: "short", day: "numeric" }); };
+    fetch("data/stats.json", { cache: "no-cache" }).then(function (r) { return r.ok ? r.json() : Promise.reject(); }).then(function (d) {
+      var vals = { "ig-followers": d.instagram.followers, "fb-members": d.facebook.members };
+      statEls.forEach(function (el) { var v = vals[el.dataset.stat]; if (v != null) { el.dataset.count = v; el.textContent = v; } });
+      var h = d.history, cur = h[h.length - 1], prev = h[h.length - 2];
+      document.querySelectorAll("[data-delta]").forEach(function (el) {
+        var k = el.dataset.delta;
+        if (!prev) { el.textContent = ""; return; }
+        if (k === "facebook_members" && d.facebook.as_of && d.facebook.as_of !== d.updated) { el.textContent = "Last checked " + fmt(d.facebook.as_of); return; }
+        var diff = cur[k] - prev[k];
+        el.textContent = "Was " + prev[k] + " on " + fmt(prev.date) + (diff ? " \u00b7 " + (diff > 0 ? "up " : "down ") + Math.abs(diff) : " \u00b7 no change");
+      });
+      var up = document.querySelector("[data-stat-updated]");
+      if (up) up.textContent = "Updated " + fmt(d.updated, true) + " \u00b7 refreshed weekly";
+    }).catch(function () {});
+  }
+
   var y = document.getElementById("year");
   if (y) y.textContent = new Date().getFullYear();
 })();

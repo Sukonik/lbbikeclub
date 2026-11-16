@@ -1,0 +1,88 @@
+name: Weekly stats refresh
+
+# Refreshes Instagram followers and Facebook group members on the site.
+# Runs every Monday and can be run by hand with the numbers filled in.
+# Instagram followers are read automatically from the public embed page. Facebook hides
+# a private group's member count behind a login, so the workflow opens an issue asking
+# for that one number each week it is not entered.
+
+on:
+  schedule:
+    - cron: "17 13 * * 1"   # Mondays, about 8:17 AM Eastern
+  workflow_dispatch:
+    inputs:
+      instagram_followers:
+        description: "Instagram followers (leave blank to read it automatically)"
+        required: false
+      facebook_members:
+        description: "Facebook group members (Facebook hides this, so enter it here)"
+        required: false
+
+permissions:
+  contents: write
+  issues: write
+  actions: write
+
+concurrency:
+  group: stats
+  cancel-in-progress: false
+
+jobs:
+  refresh:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+
+      - name: Update counts
+        id: update
+        env:
+          IG: ${{ inputs.instagram_followers }}
+          FB: ${{ inputs.facebook_members }}
+        run: |
+          args=""
+          [ -n "$IG" ] && args="$args --instagram $IG"
+          [ -n "$FB" ] && args="$args --facebook $FB"
+          set +e
+          python3 scripts/update_stats.py $args
+          code=$?
+          set -e
+          echo "code=$code" >> "$GITHUB_OUTPUT"
+          if [ "$code" -ne 0 ] && [ "$code" -ne 3 ] && [ "$code" -ne 4 ]; then exit "$code"; fi
+
+      - name: Check the site still passes
+        run: python3 tests/check_site.py
+
+      - name: Commit and deploy
+        id: commit
+        run: |
+          if git diff --quiet; then echo "changed=false" >> "$GITHUB_OUTPUT"; exit 0; fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add data/stats.json index.html
+          git commit -m "Weekly stats refresh $(date -u +%F)"
+          git push origin HEAD:main
+          echo "changed=true" >> "$GITHUB_OUTPUT"
+
+      # Pushes made with GITHUB_TOKEN do not start other workflows, so start the deploy directly.
+      - name: Publish the site
+        if: steps.commit.outputs.changed == 'true'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: gh workflow run pages.yml --ref main
+
+      - name: Ask for the Facebook number
+        if: steps.update.outputs.code == '3' || steps.update.outputs.code == '4'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          if [ -n "$(gh issue list --state open --search 'Update follower counts in:title' --json number --jq '.[0].number')" ]; then
+            echo "An update request is already open."; exit 0
+          fi
+          gh issue create --title "Update follower counts ($(date -u +%F))" --body "Instagram followers are updated automatically. Facebook hides the group member count behind a login, so it needs a number from you.
+
+          1. Open the Facebook group and note the **members** count.
+          2. Open [Weekly stats refresh](https://github.com/${{ github.repository }}/actions/workflows/stats.yml), click **Run workflow**, and enter it under *Facebook group members*.
+
+          The site updates itself about a minute later. Close this issue when done."
