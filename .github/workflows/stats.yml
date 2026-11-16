@@ -4,7 +4,7 @@ name: Weekly stats refresh
 # Runs every Monday and can be run by hand with the numbers filled in.
 # Instagram followers are read automatically from the public embed page. Facebook hides
 # a private group's member count behind a login, so the workflow opens an issue asking
-# for that one number each week it is not entered.
+# for that one number only when it is more than four weeks old.
 
 on:
   schedule:

@@ -25,7 +25,7 @@ The Social Media section shows Instagram followers and Facebook group members, w
 | Instagram followers | Automatic. Read from Instagram's public embed page by `scripts/update_stats.py`. |
 | Facebook group members | Manual. Facebook hides a private group's member count behind a login, so there is no public source. |
 
-**Every Monday** (about 8:17 AM ET) the [Weekly stats refresh](https://github.com/Sukonik/lbbikeclub/actions/workflows/stats.yml) workflow updates Instagram, commits `data/stats.json` and `index.html` to `main`, and starts the site deploy. If Facebook was not entered, it opens a GitHub issue ("Update follower counts") as a reminder, and the site shows "Last checked <date>" for that number instead of pretending it is fresh.
+**Every Monday** (about 8:17 AM ET) the [Weekly stats refresh](https://github.com/Sukonik/lbbikeclub/actions/workflows/stats.yml) workflow updates Instagram, commits `data/stats.json` and `index.html` to `main`, and starts the site deploy. Instagram is the main weekly job. Facebook is only a monthly nudge: if its number is more than four weeks old, the workflow opens a GitHub issue ("Update follower counts"), and until then the site shows "Last checked <date>" for that number instead of pretending it is fresh.
 
 **To enter the Facebook number:** open the workflow, click **Run workflow**, type the members count (and the Instagram count if you want to override it), and run. About a minute later the site is updated. You can also run `python3 scripts/update_stats.py --facebook 150` locally and commit.
 

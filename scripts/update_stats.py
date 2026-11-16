@@ -9,11 +9,11 @@ Instagram's public embed page lists followers, so that is read automatically.
 Facebook hides a private group's member count behind a login, so it is entered by hand;
 until then the last known number is carried forward and labelled with its date.
 
-Exit codes: 0 everything current, 3 nothing could be read, 4 Instagram updated but the
-Facebook members number needs to be entered by hand.
+Exit codes: 0 done (Instagram refreshed; Facebook still recent), 3 nothing could be read,
+4 Instagram refreshed but the Facebook number is over four weeks old and needs entering.
 """
 import argparse, json, re, sys, urllib.request
-from datetime import date
+from datetime import date, datetime
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent.parent
@@ -21,6 +21,7 @@ STATS = ROOT / "data" / "stats.json"
 INDEX = ROOT / "index.html"
 UA = "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/17.0 Safari/605.1.15"
 MAX_HISTORY = 156  # three years of weekly entries
+FACEBOOK_STALE_DAYS = 28  # ask for a new Facebook number about once a month
 
 
 def read_instagram(handle):
@@ -83,8 +84,12 @@ def main():
         print("Could not read the Instagram count either. Nothing changed.")
         return 3
     if not fb_entered:
-        print(f"Facebook members need to be entered by hand (last known {fb}, as of {data['facebook'].get('as_of')}).")
-        return 4
+        as_of = data["facebook"].get("as_of")
+        age = (datetime.fromisoformat(a.date) - datetime.fromisoformat(as_of)).days if as_of else 999
+        if age >= FACEBOOK_STALE_DAYS:
+            print(f"Facebook members need to be entered by hand (last known {fb}, as of {as_of}).")
+            return 4
+        print(f"Facebook members last checked {as_of} ({age} days ago); no reminder needed yet.")
     return 0
 
 
