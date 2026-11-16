@@ -130,7 +130,7 @@ Newest version is shown at the [top](#-current-site-v130); this log lists every 
 
 | Version | Date | Status | Summary |
 | --- | --- | --- | --- |
-| 1.3.0 | 2026-11-16 | **Current** (see top) | Weekly stats refresh: Instagram followers update automatically every Monday, Facebook members entered by hand with a reminder issue; the site shows the current counts, the change since the last update, and when each was last checked. First refresh: Instagram 76 to 78. |
+| 1.3.0 | 2026-11-16 | **Current** (see top) | Weekly stats refresh: Instagram followers update automatically every Monday, Facebook members entered by hand with a reminder issue; the site shows the current counts, the change since the last update, and when each was last checked. First refresh: Instagram 76 to 78, Facebook 142 to 145. |
 | 1.2.1 | 2026-10-28 | Superseded | UI sweep: every tap target at least 44 px tall (nav links, unit toggle, heading toggle now a 4x2 grid), automated sweep for overflow, tap size, clipping and contrast across pages, widths and themes. |
 | 1.2.0 | 2026-10-28 | Superseded | Simple flat wheel logo and favicon (rim and spokes only, bright white with a slight theme tint), larger header logo, mobile polish: centered menu icon, theme orb and button labels, tidier button rows, hero readouts moved off the wheel. |
 | 1.1.0 | 2026-10-28 | Superseded | 8 pearlescent bike-brand themes and switcher, themed header and right-side drawer, live weather chip, Ride Weather page (score gauge, wind compass, best window, 24-hour and 7-day, what to wear, lights), scrolling text bar removed, tighter copy, browser QA, README and CHANGELOG in GoldBrief style. |

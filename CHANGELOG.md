@@ -4,7 +4,7 @@
 - Weekly stats refresh. Instagram followers are read automatically from the public embed page every Monday. Facebook group members cannot be read without a login, so they are entered by hand through the workflow's Run workflow form, and a GitHub issue reminds you when they are missing.
 - The Social Media section now shows the change since the last update and when each count was last checked. Counts come from `data/stats.json` (dated history); the numbers in the page remain as a fallback.
 - Removed the Instagram "following" count to keep it simple.
-- First refresh (2026-11-16): Instagram followers 76 to 78. Facebook members still 142 as of 2026-10-28.
+- First refresh (2026-11-16): Instagram followers 76 to 78, Facebook members 142 to 145.
 - `tests/check_site.py` now validates `data/stats.json` and that the page fallback matches it.
 
 ## 1.2.1 (2026-10-28)
