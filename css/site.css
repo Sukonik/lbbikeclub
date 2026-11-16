@@ -190,6 +190,7 @@ h1, h2, h3 { font-weight: 700; }
 
 /* stats / lists */
 .stat-num { font-size: clamp(2.2rem, 6vw, 3.2rem); font-weight: 800; line-height: 1; letter-spacing: -.04em; }
+.stat-delta { margin: -.4rem 0 1.1rem; font-family: var(--mono); font-size: .66rem; letter-spacing: .1em; text-transform: uppercase; color: var(--faint); min-height: 1em; }
 .stat-note { font-family: var(--mono); font-size: .64rem; letter-spacing: .12em; text-transform: uppercase; color: var(--faint); }
 .steps li { display: grid; gap: .25rem; padding: 1.1rem 0; border-top: 1px solid var(--hair); }
 .steps li:last-child { border-bottom: 1px solid var(--hair); }

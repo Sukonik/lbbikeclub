@@ -37,6 +37,21 @@ for needle in ('<title>', 'name="description"', 'rel="canonical"', 'application/
 for f in ("js/theme.js", "js/main.js", "js/weather-lib.js", "js/weather-page.js", "css/site.css", "css/weather.css", "robots.txt", "sitemap.xml", "site.webmanifest", ".nojekyll", "assets/og-image.png"):
     if not (ROOT / f).exists(): errors.append(f"missing {f}")
 
+import json
+try:
+    st = json.loads((ROOT / "data" / "stats.json").read_text())
+    hist = st["history"]
+    dates = [h["date"] for h in hist]
+    if dates != sorted(dates) or len(set(dates)) != len(dates): errors.append("stats.json: history must be sorted with unique dates")
+    last = hist[-1]
+    if st["updated"] != last["date"]: errors.append("stats.json: updated must match the latest history date")
+    if (st["instagram"]["followers"], st["facebook"]["members"]) != (last["instagram_followers"], last["facebook_members"]):
+        errors.append("stats.json: current values must match the latest history entry")
+    for name, val in (("ig-followers", st["instagram"]["followers"]), ("fb-members", st["facebook"]["members"])):
+        if not re.search(r'data-stat="%s"[^>]*data-count="%d">%d<' % (name, val, val), html): errors.append(f"index.html: fallback for {name} does not match stats.json")
+except Exception as e:
+    errors.append(f"stats.json: {e}")
+
 if errors:
     print("\n".join(errors)); sys.exit(1)
 print("site checks passed")
