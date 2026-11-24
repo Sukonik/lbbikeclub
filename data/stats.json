@@ -1,8 +1,8 @@
 {
-  "updated": "2026-11-16",
+  "updated": "2026-11-24",
   "instagram": {
     "handle": "lbbikeclub",
-    "followers": 78
+    "followers": 77
   },
   "facebook": {
     "members": 145,
@@ -17,6 +17,11 @@
     {
       "date": "2026-11-16",
       "instagram_followers": 78,
+      "facebook_members": 145
+    },
+    {
+      "date": "2026-11-24",
+      "instagram_followers": 77,
       "facebook_members": 145
     }
   ]
